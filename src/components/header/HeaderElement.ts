@@ -3,6 +3,7 @@ import sneaker from '/logo/sneaker.svg';
 import menu from '/logo/icon-menu.svg';
 import cart from '/logo/icon-cart.svg';
 import avatar from '/avatar/avatar.png';
+import { getImg } from '../../utils/Util';
 
 export class HeaderElement extends HTMLElement {
 
@@ -26,27 +27,19 @@ export class HeaderElement extends HTMLElement {
     }
 
     private getSneakers(): HTMLImageElement {
-        return this.getImg(sneaker, 'sneakers', 'logo zapatillas');
+        return getImg(sneaker, 'sneakers', 'logo zapatillas');
     }
 
     private getMenu(): HTMLImageElement {
-        return this.getImg(menu, 'menu', 'logo menu');
+        return getImg(menu, 'menu', 'logo menu');
     }
 
     private getCart(): HTMLImageElement {
-        return this.getImg(cart, 'cart', 'logo cart');
+        return getImg(cart, 'cart', 'logo cart');
     }
 
     private getAvatar(): HTMLImageElement {
-        return this.getImg(avatar, 'avatar', 'avatar usuario')
-    }
-
-    private getImg(src: string, className: string, alt: string): HTMLImageElement {
-        const img = document.createElement('img');
-        img.src = src;
-        img.className = className;
-        img.alt = alt;
-        return img;
+        return getImg(avatar, 'avatar', 'avatar usuario')
     }
 
 }

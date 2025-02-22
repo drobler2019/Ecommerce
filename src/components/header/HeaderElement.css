@@ -1,5 +1,31 @@
-:host(header-element) {
+.header-container {
+  padding: var(--padding-value);
+  max-block-size: 40px;
+}
+
+:is(.header-container, .container-icons, .container-user) {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.container-icons img:last-child {
+  inline-size: var(--inline-size-sneakers);
+}
+
+.container-icons img:first-child {
+  align-self: end;
+}
+
+.container-user,
+.container-icons {
+  column-gap: 15px;
+}
+
+.container-user img:first-child {
+  inline-size: 25px;
+}
+
+.container-user img {
+  inline-size: 30px;
 }

@@ -13,12 +13,15 @@ export class HeaderElement extends HTMLElement {
         const shadow = this.attachShadow({ mode: 'open' });
         this.initStyle(shadow);
         shadow.innerHTML = /* html */`
-        <div class="container-icons"></div>
-        <div class="container-user"></div>
-        `;
-        const { firstElementChild, lastElementChild } = shadow;
-        firstElementChild!.append(this.getMenu(), this.getSneakers());
-        lastElementChild!.append(this.getCart(), this.getAvatar());
+        <div class="header-container">
+           <div class="container-icons"></div>
+           <div class="container-user"></div>
+        </div>`
+        const { firstElementChild: headerContainer } = shadow;
+        const { firstElementChild: containerIcons, lastElementChild: containerUser } = headerContainer!;
+        containerIcons!.append(this.getMenu(), this.getSneakers());
+        containerUser!.append(this.getCart(), this.getAvatar());
+        console.log(headerContainer)
     }
 
     private initStyle(shadow: ShadowRoot): void {

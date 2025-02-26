@@ -1,4 +1,4 @@
-@import url('reset.css');
+@import url("reset.css");
 
 @font-face {
   font-family: "League Spartan";
@@ -17,6 +17,7 @@
   --neutral-light-grayish-blue: hsl(223deg 64% 98%);
   --neutral-white: hsl(0deg 0% 100%);
   --neutral-black: hsl(0deg 0% 0% / 75%);
+  --transparent: rgb(from var(--neutral-very-dark-blue) r g b / 0.8);
 
   /**** configuración fuentes ****/
   --font-size-value: 16px;
@@ -28,11 +29,10 @@
   --padding-value: 25px;
 
   --inline-size-sneakers: 140px;
-
 }
 
 body {
-  font-family: var(--font-family-value) , sans-serif;
+  font-family: var(--font-family-value), sans-serif;
   font-size: var(--font-size-value);
   font-weight: var(--regular);
 }

@@ -1,3 +1,8 @@
+export const TEMPLATE_TRANSPARENT =
+    `<template class="container-template">
+ <div class="bed-sheet" style="background-color: var(--transparent); inset:0; position: absolute;"></div>
+</template>`;
+
 export const getImg = (src: string, className: string, alt: string) => {
     const img = document.createElement('img');
     img.src = src;

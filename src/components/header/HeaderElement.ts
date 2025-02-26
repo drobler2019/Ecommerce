@@ -30,6 +30,9 @@ export class HeaderElement extends HTMLElement {
 
     handleEvent(): void {
         if (this.sideber) {
+            const template = document.querySelector('template')!;
+            const content = template.content.cloneNode(true);
+            document.body.appendChild(content);
             const { shadowRoot } = this.sideber;
             addStyles(shadowRoot!, ':host(sidebar-element) {transform: translateX(0)}');
         }

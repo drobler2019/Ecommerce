@@ -5,3 +5,9 @@ export const getImg = (src: string, className: string, alt: string) => {
     img.alt = alt;
     return img;
 }
+
+export const addStyles = (shadow: ShadowRoot, styles: string): void => {
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync(styles);
+    shadow.adoptedStyleSheets.push(sheet);
+}

@@ -29,3 +29,7 @@
 .container-user img {
   inline-size: 30px;
 }
+
+:is(.container-icons img:first-child, .container-user img:first-child) {
+  cursor: pointer;
+}

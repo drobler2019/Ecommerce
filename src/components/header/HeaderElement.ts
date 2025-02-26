@@ -3,15 +3,18 @@ import sneaker from '/logo/sneaker.svg';
 import menu from '/logo/icon-menu.svg';
 import cart from '/logo/icon-cart.svg';
 import avatar from '/avatar/avatar.png';
-import { getImg } from '../../utils/Util';
+import { addStyles, getImg } from '../../utils/Util';
+import { SidebarElement } from '../sidebar/Sidebar';
 
 export class HeaderElement extends HTMLElement {
 
-    private readonly sheet = new CSSStyleSheet();
+    constructor(private sideber: SidebarElement) {
+        super();
+    }
 
     connectedCallback(): void {
         const shadow = this.attachShadow({ mode: 'open' });
-        this.initStyle(shadow);
+        addStyles(shadow, styles);
         shadow.innerHTML = /* html */`
         <div class="header-container">
            <div class="container-icons"></div>
@@ -21,12 +24,15 @@ export class HeaderElement extends HTMLElement {
         const { firstElementChild: containerIcons, lastElementChild: containerUser } = headerContainer!;
         containerIcons!.append(this.getMenu(), this.getSneakers());
         containerUser!.append(this.getCart(), this.getAvatar());
-        console.log(headerContainer)
+        const menu = containerIcons!.firstElementChild!;
+        menu.addEventListener('click', this);
     }
 
-    private initStyle(shadow: ShadowRoot): void {
-        this.sheet.replaceSync(styles);
-        shadow.adoptedStyleSheets = [this.sheet];
+    handleEvent(): void {
+        if (this.sideber) {
+            const { shadowRoot } = this.sideber;
+            addStyles(shadowRoot!, ':host(sidebar-element) {transform: translateX(0)}');
+        }
     }
 
     private getSneakers(): HTMLImageElement {

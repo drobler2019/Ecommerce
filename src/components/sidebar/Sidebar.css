@@ -1,0 +1,34 @@
+:host(sidebar-element) {
+  display: block;
+  position: absolute;
+  inset-block-start: 0;
+  inset-block-end: 0;
+  inline-size: 50vw;
+  background-color: var(--neutral-white);
+  border-inline-end: thin solid;
+  max-inline-size: 270px;
+  min-inline-size: 200px;
+  transition: transform 0.8s ease;
+  transform: translateX(-300px);
+}
+
+.sidebar-container {
+  box-sizing: border-box;
+  padding: var(--padding-value);
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+.close {
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+  & li {
+    margin-block-end: 10px;
+    font-size: var(--font-size-value-sidebar);
+    font-weight: bold;
+  }
+}

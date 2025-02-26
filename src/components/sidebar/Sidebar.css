@@ -5,7 +5,6 @@
   inset-block-end: 0;
   inline-size: 50vw;
   background-color: var(--neutral-white);
-  border-inline-end: thin solid;
   max-inline-size: 270px;
   min-inline-size: 200px;
   transition: transform 0.8s ease;

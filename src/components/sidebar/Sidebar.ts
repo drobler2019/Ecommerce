@@ -28,10 +28,12 @@ export class SidebarElement extends HTMLElement {
 
     handleEvent(): void {
         const bedSheet = document.querySelector('.bed-sheet');
-        if(bedSheet) {
+        if (bedSheet) {
             document.body.removeChild(bedSheet);
         }
         addStyles(this.shadowRoot!, ':host(sidebar-element) {transform: translateX(-300px)}');
+        this.shadowRoot!.adoptedStyleSheets = [];
+        addStyles(this.shadowRoot!, styles);
     }
 
     private getClose() {

@@ -47,7 +47,7 @@ export class HeaderElement extends HTMLElement {
                     menu.addEventListener('click', this);
                     if (length > 1) {
                         /*
-                        cuando el componente sidebar está activado, y se destruye, elimina el últimos estilo css
+                        cuando el componente sidebar está activado, y se destruye, elimina el último estilo css
                         que lo mantienen dentro de la ventana del navegador
                         */
                         this.sidebar.shadowRoot!.adoptedStyleSheets.pop();

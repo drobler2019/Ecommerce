@@ -1,0 +1,27 @@
+.container-main {
+  max-inline-size: var(--max-inline-size-value);
+  column-gap: 100px;
+}
+
+.container-products img {
+  object-fit: cover;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.container-products {
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+@media screen and (width > 768px) {
+  .container-main {
+    display: flex;
+    margin: 120px auto;
+  }
+}
+
+@media screen and (width < 768px) {
+  .container-products {
+    block-size: 400px;
+  }
+}

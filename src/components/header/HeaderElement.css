@@ -1,10 +1,22 @@
 .header-container {
-  padding-block: var(--padding-value);
+  padding-block: var(--padding-header-desktop);
   max-block-size: 40px;
   max-inline-size: var(--max-inline-size-value);
   margin: auto;
   border-bottom: thin solid
     hsl(from var(--neutral-dark-grayish-blue) h s l / 0.5);
+}
+
+.container-user img {
+  inline-size: 50px;
+}
+@media screen and (width < 768px) {
+  .header-container {
+    padding-inline: var(--padding-value);
+  }
+  .container-user img:last-cihld {
+    inline-size: 30px;
+  }
 }
 
 .layout-icons {
@@ -49,9 +61,7 @@
   inline-size: 25px;
 }
 
-.container-user img {
-  inline-size: 30px;
-}
+
 
 :is(.container-icons img:first-child, .container-user img:first-child) {
   cursor: pointer;

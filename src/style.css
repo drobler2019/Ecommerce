@@ -26,17 +26,26 @@
   --bold: 600;
   --font-family-value: "League Spartan";
 
-  --padding-value: 35px;
+  --padding-value: 20px;
 
   --inline-size-sneakers: 140px;
   --max-inline-size-value: 1000px;
 
+  --border-radius: 15px;
+
   --value-gap: 18px;
+  --padding-header-mobile: 20px;
+  --padding-header-desktop: 40px;
 }
 
 body {
   font-family: var(--font-family-value), sans-serif;
   font-size: var(--font-size-value);
   font-weight: var(--regular);
-  padding-inline: var(--padding-value);
+}
+
+@media screen and (width > 768px) {
+  body {
+    padding-inline: var(--pading-value);
+  }
 }

@@ -1,0 +1,35 @@
+.container-products-description {
+  padding: var(--padding-value);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--value-gap);
+
+  h1 {
+    font-size: 32px;
+    line-height: 30px;
+  }
+
+  h3 {
+    font-size: 15px;
+    color: var(--neutral-dark-grayish-blue);
+    text-transform: uppercase;
+  }
+  & p {
+    line-height: 25px;
+    color: var(--neutral-dark-grayish-blue);
+  }
+}
+
+@media screen and (width > 768px) {
+  .container-products-description {
+    h1 {
+      font-size: 42px;
+      line-height: 40px;
+    }
+
+    h3 {
+      letter-spacing: 5px;
+      font-size: 12px;
+    }
+  }
+}

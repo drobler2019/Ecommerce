@@ -29,6 +29,7 @@
   --padding-value: 25px;
 
   --inline-size-sneakers: 140px;
+  --max-inline-size-value: 1200px;
 }
 
 body {

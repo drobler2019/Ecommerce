@@ -3,12 +3,15 @@ import sneaker from '/logo/sneaker.svg';
 import menu from '/logo/icon-menu.svg';
 import cart from '/logo/icon-cart.svg';
 import avatar from '/avatar/avatar.png';
-import { addStyles, getImg } from '../../utils/Util';
+import { addStyles, getImg, getTemplate } from '../../utils/Util';
 import { SidebarElement } from '../sidebar/Sidebar';
 
 export class HeaderElement extends HTMLElement {
 
-    constructor(private sideber: SidebarElement) {
+    private app = document.querySelector('#app');
+    private status = true;
+
+    constructor(private sidebar: SidebarElement) {
         super();
     }
 
@@ -26,15 +29,44 @@ export class HeaderElement extends HTMLElement {
         containerUser!.append(this.getCart(), this.getAvatar());
         const menu = containerIcons!.firstElementChild!;
         menu.addEventListener('click', this);
+        window.addEventListener('resize', this);
     }
 
-    handleEvent(): void {
-        if (this.sideber) {
-            const template = document.querySelector('template')!;
-            const content = template.content.cloneNode(true);
-            document.body.appendChild(content);
-            const { shadowRoot } = this.sideber;
-            addStyles(shadowRoot!, ':host(sidebar-element) {transform: translateX(0)}');
+    handleEvent(event: Event): void {
+
+        if (event.type === 'resize') {
+            const window = event.target as Window;
+            if (window.innerWidth < 768 && !this.status) {
+                if (this.app && !this.app.querySelector('.sidebar-element')) {
+                    this.app.append(this.sidebar);
+                    const length = this.sidebar.shadowRoot!.adoptedStyleSheets.length;
+                    this.getMenu().addEventListener('click', this);
+                    const containerIcons = this.shadowRoot!.querySelector('.container-icons')!
+                    containerIcons.insertAdjacentElement('afterbegin', this.getMenu());
+                    const menu = containerIcons!.firstElementChild!;
+                    menu.addEventListener('click', this);
+                    if (length > 1) {
+                        this.sidebar.shadowRoot!.adoptedStyleSheets.pop();
+                    }
+                }
+                this.status = true;
+            }
+            if (window.innerWidth > 768 && this.status) {
+                if (this.app && this.app.querySelector('sidebar-element')) {
+                    const icon = this.shadowRoot!.querySelector('.menu')!;
+                    this.app.removeChild(this.sidebar);
+                    this.shadowRoot!.querySelector('.container-icons')?.removeChild(icon);
+                }
+                this.status = false;
+            }
+        }
+
+        if (event.type === 'click') {
+            if (this.sidebar) {
+                document.body.appendChild(getTemplate('.container-template'));
+                const { shadowRoot } = this.sidebar;
+                addStyles(shadowRoot!, ':host(sidebar-element) {transform: translateX(0)}');
+            }
         }
     }
 

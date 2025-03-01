@@ -1,9 +1,22 @@
-export const TEMPLATE_TRANSPARENT =
+const TEMPLATE_TRANSPARENT = /*html*/
     `<template class="container-template">
- <div class="bed-sheet" style="background-color: var(--transparent); inset:0; position: absolute;"></div>
-</template>`;
+        <div class="bed-sheet" style="background-color: var(--transparent); inset:0; position: absolute;"></div>
+    </template>`;
 
-export const getImg = (src: string, className: string, alt: string) => {
+const OPTIONS = /*html*/ `
+   <template class="container-options">
+      <div class="sidebar-container">
+              <ul>
+                <li>Collections</li>
+                <li>Men</li>
+                <li>Women</li>
+                <li>About</li>
+                <li>Contact</li>
+              </ul>
+     </div>
+   </template>
+`
+ const getImg = (src: string, className: string, alt: string) => {
     const img = document.createElement('img');
     img.src = src;
     img.className = className;
@@ -11,8 +24,21 @@ export const getImg = (src: string, className: string, alt: string) => {
     return img;
 }
 
-export const addStyles = (shadow: ShadowRoot, styles: string): void => {
+const addStyles = (shadow: ShadowRoot, styles: string): void => {
     const sheet = new CSSStyleSheet();
     sheet.replaceSync(styles);
     shadow.adoptedStyleSheets.push(sheet);
+}
+
+const getTemplate = (className: string) : Node => {
+  const template = document.querySelector<HTMLTemplateElement>(className)!;
+  return template.content.cloneNode(true);
+}
+
+export {
+ TEMPLATE_TRANSPARENT,
+ OPTIONS,
+ getImg,
+ addStyles,
+ getTemplate
 }

@@ -1,29 +1,31 @@
 import styles from './Sidebar.css?raw';
-import { addStyles, getImg } from "../../utils/Util";
+import { addStyles, getImg, getTemplate } from "../../utils/Util";
 import close from "/logo/icon-close.svg";
 
 export class SidebarElement extends HTMLElement {
 
+    private shadow!: ShadowRoot;
+
     connectedCallback(): void {
-        const shadowRoot = this.attachShadow({ mode: 'open' });
-        addStyles(shadowRoot, styles);
-        shadowRoot.innerHTML = /*html*/
-            `<div class="sidebar-container">
-              <ul>
-                <li>Collections</li>
-                <li>Men</li>
-                <li>Women</li>
-                <li>About</li>
-                <li>Contact</li>
-              </ul>
-            </div>`;
-        const { firstElementChild: containerSidebar } = shadowRoot;
+        if (this.shadow) {
+            return;
+        }
+        this.shadow = this.attachShadow({ mode: 'open' });
+        addStyles(this.shadow, styles);
+        this.shadow.appendChild(getTemplate('.container-options'));
+        const { firstElementChild: containerSidebar } = this.shadow;
         if (containerSidebar) {
             containerSidebar.insertAdjacentElement('afterbegin', this.getClose());
             const close = containerSidebar.firstElementChild!;
             close.addEventListener('click', this);
         }
+    }
 
+    disconnectedCallback(): void {
+        const bed = document.querySelector('.bed-sheet');
+        if (bed) {
+            document.body.removeChild(bed);
+        }
     }
 
     handleEvent(): void {
@@ -31,9 +33,9 @@ export class SidebarElement extends HTMLElement {
         if (bedSheet) {
             document.body.removeChild(bedSheet);
         }
-        addStyles(this.shadowRoot!, ':host(sidebar-element) {transform: translateX(-300px)}');
-        this.shadowRoot!.adoptedStyleSheets = [];
-        addStyles(this.shadowRoot!, styles);
+        addStyles(this.shadow!, ':host(sidebar-element) {transform: translateX(-300px)}');
+        this.shadow!.adoptedStyleSheets = [];
+        addStyles(this.shadow!, styles);
     }
 
     private getClose() {

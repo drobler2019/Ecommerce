@@ -1,6 +1,8 @@
 .header-container {
   padding: var(--padding-value);
   max-block-size: 40px;
+  max-inline-size: var(--max-inline-size-value);
+  margin: auto;
 }
 
 :is(.header-container, .container-icons, .container-user) {

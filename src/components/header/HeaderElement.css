@@ -1,8 +1,10 @@
 .header-container {
-  padding: var(--padding-value);
+  padding-block: var(--padding-value);
   max-block-size: 40px;
   max-inline-size: var(--max-inline-size-value);
   margin: auto;
+  border-bottom: thin solid
+    hsl(from var(--neutral-dark-grayish-blue) h s l / 0.5);
 }
 
 .layout-icons {
@@ -19,6 +21,7 @@
     & li {
       align-self: end;
       cursor: pointer;
+      color: var(--neutral-dark-grayish-blue);
     }
   }
 }

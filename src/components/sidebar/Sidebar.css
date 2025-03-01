@@ -3,6 +3,7 @@
   position: absolute;
   inset-block-start: 0;
   inset-block-end: 0;
+  inset-inline-start:0;
   inline-size: 50vw;
   background-color: var(--neutral-white);
   max-inline-size: 270px;

@@ -26,10 +26,12 @@
   --bold: 600;
   --font-family-value: "League Spartan";
 
-  --padding-value: 25px;
+  --padding-value: 35px;
 
   --inline-size-sneakers: 140px;
-  --max-inline-size-value: 1200px;
+  --max-inline-size-value: 1000px;
+
+  --value-gap: 18px;
 }
 
 body {

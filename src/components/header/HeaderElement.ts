@@ -20,23 +20,37 @@ export class HeaderElement extends HTMLElement {
         addStyles(shadow, styles);
         shadow.innerHTML = /* html */`
         <div class="header-container">
-           <div class="container-icons"></div>
-           <div class="container-user"></div>
+          <div class="layout-icons">
+            <div class="container-icons"></div>
+          </div>
+          <div class="container-user"></div>
         </div>`
         const { firstElementChild: headerContainer } = shadow;
-        const { firstElementChild: containerIcons, lastElementChild: containerUser } = headerContainer!;
+        const { firstElementChild: layoutIcoins, lastElementChild: containerUser } = headerContainer!;
+        const { firstElementChild: containerIcons } = layoutIcoins!;
         containerIcons!.append(this.getMenu(), this.getSneakers());
         containerUser!.append(this.getCart(), this.getAvatar());
         const menu = containerIcons!.firstElementChild!;
         menu.addEventListener('click', this);
         window.addEventListener('resize', this);
+        window.addEventListener('DOMContentLoaded', this);
     }
 
     handleEvent(event: Event): void {
 
+        if (event.type === 'DOMContentLoaded') {
+            if (innerWidth > 768) {
+                if (this.app && this.app.querySelector('sidebar-element')) {
+                    const icon = this.shadowRoot!.querySelector('.menu')!;
+                    this.app.removeChild(this.sidebar);
+                    this.shadowRoot!.querySelector('.container-icons')?.removeChild(icon);
+                    this.addOptionsMenuDesktop();
+                }
+            }
+        }
+
         if (event.type === 'resize') {
-            const window = event.target as Window;
-            if (window.innerWidth < 768 && !this.status) {
+            if (innerWidth < 768 && !this.status) {
                 if (this.app && !this.app.querySelector('.sidebar-element')) {
                     this.app.append(this.sidebar);
                     const length = this.sidebar.shadowRoot!.adoptedStyleSheets.length;
@@ -52,14 +66,20 @@ export class HeaderElement extends HTMLElement {
                         */
                         this.sidebar.shadowRoot!.adoptedStyleSheets.pop();
                     }
+                    const layoutIcons = this.shadowRoot!.querySelector('.layout-icons')!;
+                    const optionsDesktop = layoutIcons.querySelector('.sidebar-container');
+                    if (optionsDesktop) {
+                        layoutIcons.removeChild(optionsDesktop);
+                    }
                 }
                 this.status = true;
             }
-            if (window.innerWidth > 768 && this.status) {
+            if (innerWidth > 768 && this.status) {
                 if (this.app && this.app.querySelector('sidebar-element')) {
                     const icon = this.shadowRoot!.querySelector('.menu')!;
                     this.app.removeChild(this.sidebar);
                     this.shadowRoot!.querySelector('.container-icons')?.removeChild(icon);
+                    this.addOptionsMenuDesktop();
                 }
                 this.status = false;
             }
@@ -72,6 +92,13 @@ export class HeaderElement extends HTMLElement {
                 addStyles(shadowRoot!, ':host(sidebar-element) {transform: translateX(0)}');
             }
         }
+    }
+
+    private addOptionsMenuDesktop(): void {
+        const containerOptions = document.querySelector<HTMLTemplateElement>('.container-options')!.content.cloneNode(true);
+        const layoutIcons = this.shadowRoot!.querySelector('.layout-icons')!;
+        layoutIcons.appendChild(containerOptions)
+
     }
 
     private getSneakers(): HTMLImageElement {

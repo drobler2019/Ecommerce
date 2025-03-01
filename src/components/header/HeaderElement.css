@@ -5,6 +5,24 @@
   margin: auto;
 }
 
+.layout-icons {
+  display: flex;
+  align-items: end;
+  column-gap: (--value-gap);
+  & ul {
+    box-sizing: border-box;
+    display: flex;
+    align-items: end;
+    margin: 0;
+    list-style-type: none;
+    column-gap: var(--value-gap);
+    & li {
+      align-self: end;
+      cursor: pointer;
+    }
+  }
+}
+
 :is(.header-container, .container-icons, .container-user) {
   display: flex;
   justify-content: space-between;

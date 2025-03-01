@@ -46,6 +46,10 @@ export class HeaderElement extends HTMLElement {
                     const menu = containerIcons!.firstElementChild!;
                     menu.addEventListener('click', this);
                     if (length > 1) {
+                        /*
+                        cuando el componente sidebar está activado, y se destruye, elimina el últimos estilo css
+                        que lo mantienen dentro de la ventana del navegador
+                        */
                         this.sidebar.shadowRoot!.adoptedStyleSheets.pop();
                     }
                 }

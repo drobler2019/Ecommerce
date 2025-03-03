@@ -1,5 +1,5 @@
-import html from './PriceElement.html?raw';
 import './PriceElement.css';
+import html from './PriceElement.html?raw';
 
 export class PriceElement extends HTMLElement {
     constructor() {

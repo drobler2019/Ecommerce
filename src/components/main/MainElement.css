@@ -3,25 +3,35 @@
   column-gap: 100px;
 }
 
-.container-products img {
-  object-fit: cover;
-  inline-size: 100%;
-  block-size: 100%;
+.container-product-main {
+  overflow: hidden;
+  & img {
+    object-fit: cover;
+    inline-size: 100%;
+    block-size: 100%;
+  }
 }
 
 .container-products {
   overflow: hidden;
-  border-radius: var(--border-radius);
 }
 @media screen and (width > 768px) {
   .container-main {
     display: flex;
     margin: 120px auto;
+    padding-inline: calc(var(--padding-value) * 2);
+  }
+  .container-products {
+    flex-basis: 800px;
+  }
+  .container-product-main {
+    block-size: 380px;
+    border-radius: var(--border-radius);
   }
 }
 
 @media screen and (width < 768px) {
-  .container-products {
+  .container-product-main {
     block-size: 400px;
   }
 }

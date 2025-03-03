@@ -16,6 +16,9 @@ const OPTIONS = /*html*/ `
      </div>
    </template>
 `
+
+const MIN_SIZE_SCREEN_DESKTOP = 768;
+
  const getImg = (src: string, className: string, alt: string) => {
     const img = document.createElement('img');
     img.src = src;
@@ -38,6 +41,7 @@ const getTemplate = (className: string) : Node => {
 export {
  TEMPLATE_TRANSPARENT,
  OPTIONS,
+ MIN_SIZE_SCREEN_DESKTOP,
  getImg,
  addStyles,
  getTemplate

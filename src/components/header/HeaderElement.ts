@@ -3,7 +3,7 @@ import sneaker from '/logo/sneaker.svg';
 import menu from '/logo/icon-menu.svg';
 import cart from '/logo/icon-cart.svg';
 import avatar from '/avatar/avatar.png';
-import { addStyles, getImg, getTemplate } from '../../utils/Util';
+import { addStyles, getImg, getTemplate, MIN_SIZE_SCREEN_DESKTOP } from '../../utils/Util';
 import { SidebarElement } from '../sidebar/Sidebar';
 
 export class HeaderElement extends HTMLElement {
@@ -39,7 +39,7 @@ export class HeaderElement extends HTMLElement {
     handleEvent(event: Event): void {
 
         if (event.type === 'DOMContentLoaded') {
-            if (innerWidth > 768) {
+            if (innerWidth > MIN_SIZE_SCREEN_DESKTOP) {
                 if (this.app && this.app.querySelector('sidebar-element')) {
                     const icon = this.shadowRoot!.querySelector('.menu')!;
                     this.app.removeChild(this.sidebar);
@@ -50,7 +50,7 @@ export class HeaderElement extends HTMLElement {
         }
 
         if (event.type === 'resize') {
-            if (innerWidth < 768 && !this.status) {
+            if (innerWidth < MIN_SIZE_SCREEN_DESKTOP && !this.status) {
                 if (this.app && !this.app.querySelector('.sidebar-element')) {
                     this.app.append(this.sidebar);
                     const length = this.sidebar.shadowRoot!.adoptedStyleSheets.length;
@@ -74,7 +74,7 @@ export class HeaderElement extends HTMLElement {
                 }
                 this.status = true;
             }
-            if (innerWidth > 768 && this.status) {
+            if (innerWidth > MIN_SIZE_SCREEN_DESKTOP && this.status) {
                 if (this.app && this.app.querySelector('sidebar-element')) {
                     const icon = this.shadowRoot!.querySelector('.menu')!;
                     this.app.removeChild(this.sidebar);

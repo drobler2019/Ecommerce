@@ -1,0 +1,15 @@
+.container-list-products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--value-gap);
+  padding-block: var(--padding-value);
+  & div {
+    inline-size: 90px;
+    block-size: 80px;
+  }
+  & img {
+    inline-size: 100%;
+    border-radius: var(--border-radius);
+  }
+}

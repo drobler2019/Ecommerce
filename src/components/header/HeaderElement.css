@@ -1,10 +1,16 @@
 .header-container {
-  padding-block: var(--padding-header-desktop);
+  padding-block: var(--padding-header-mobile);
   max-block-size: 40px;
   max-inline-size: var(--max-inline-size-value);
   margin: auto;
   border-bottom: thin solid
     hsl(from var(--neutral-dark-grayish-blue) h s l / 0.5);
+}
+
+@media screen and (width > 768px) {
+  .header-container {
+    padding-block: var(--padding-header-desktop);
+  }
 }
 
 .container-user img {

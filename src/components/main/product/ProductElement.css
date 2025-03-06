@@ -7,6 +7,7 @@
   & div {
     inline-size: 90px;
     block-size: 80px;
+    cursor: pointer;
   }
   & img {
     inline-size: 100%;

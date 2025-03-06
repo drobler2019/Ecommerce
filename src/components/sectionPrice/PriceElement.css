@@ -1,9 +1,75 @@
-.container-products-description {
+.container-prices {
   padding: var(--padding-value);
+}
+
+:is(
+    .layout-quantity,
+    .quantity-products,
+    .container-products-description,
+    .layout-price,
+    .price-percentage
+  ) {
   display: flex;
+}
+
+:is(.layout-quantity, .container-products-description) {
   flex-direction: column;
   row-gap: var(--value-gap);
+}
 
+.layout-price {
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding-value);
+}
+
+.price-percentage {
+  align-items: center;
+  column-gap: var(--value-gap);
+  & h3 {
+    font-size: 30px;
+  }
+
+  & .percentage {
+    background-color: var(--neutral-black);
+    color: var(--neutral-white);
+    padding: 5px;
+    border-radius: 5px;
+    align-content: center;
+    text-align: center;
+  }
+}
+
+.quantity-products {
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--neutral-light-grayish-blue);
+  padding: var(--padding-value);
+  border-radius: var(--border-radius);
+  & > :is(div:first-child, div:last-child) {
+    cursor: pointer;
+  }
+  & p {
+    font-weight: bold;
+    font-size: var(--font-size-value);
+  }
+}
+
+.layout-quantity button {
+  padding: var(--padding-value);
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  font-size: var(--font-size-value);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+  border: none;
+  background-color: var(--primary-orange);
+  cursor: pointer;
+}
+
+.container-products-description {
   h1 {
     font-size: 32px;
     line-height: 30px;
@@ -21,6 +87,23 @@
 }
 
 @media screen and (width > 768px) {
+  .layout-price {
+    flex-direction: column;
+    align-items: start;
+    row-gap: var(--value-gap);
+  }
+  .layout-quantity {
+    flex-direction: row;
+    column-gap: var(--value-gap);
+    & button {
+      flex-grow: 3;
+    }
+  }
+
+  .quantity-products {
+    flex-grow: 2.5;
+  }
+
   .container-products-description {
     h1 {
       font-size: 42px;

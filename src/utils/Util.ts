@@ -1,6 +1,6 @@
 const TEMPLATE_TRANSPARENT = /*html*/
     `<template class="container-template">
-        <div class="bed-sheet" style="background-color: var(--transparent); inset:0; position: absolute;"></div>
+        <div class="bed-sheet" style="background-color: var(--transparent); inset:0; position: fixed;"></div>
     </template>`;
 
 const OPTIONS = /*html*/ `

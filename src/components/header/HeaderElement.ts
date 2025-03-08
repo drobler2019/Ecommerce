@@ -23,13 +23,19 @@ export class HeaderElement extends HTMLElement {
           <div class="layout-icons">
             <div class="container-icons"></div>
           </div>
-          <div class="container-user"></div>
+          <div class="container-user">
+              <div class="icon-cart">
+                <img src="/logo/icon-cart.svg"/>
+              </div>
+              <div class="icon-avatar">
+                <img src="/avatar/avatar.png" />
+              </div>
+          </div>
         </div>`
         const { firstElementChild: headerContainer } = shadow;
         const { firstElementChild: layoutIcoins, lastElementChild: containerUser } = headerContainer!;
         const { firstElementChild: containerIcons } = layoutIcoins!;
         containerIcons!.append(this.getMenu(), this.getSneakers());
-        containerUser!.append(this.getCart(), this.getAvatar());
         const menu = containerIcons!.firstElementChild!;
         menu.addEventListener('click', this);
         window.addEventListener('resize', this);
@@ -107,14 +113,6 @@ export class HeaderElement extends HTMLElement {
 
     private getMenu(): HTMLImageElement {
         return getImg(menu, 'menu', 'logo menu');
-    }
-
-    private getCart(): HTMLImageElement {
-        return getImg(cart, 'cart', 'logo cart');
-    }
-
-    private getAvatar(): HTMLImageElement {
-        return getImg(avatar, 'avatar', 'avatar usuario')
     }
 
 }

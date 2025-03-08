@@ -15,7 +15,14 @@ const OPTIONS = /*html*/ `
               </ul>
      </div>
    </template>
-`
+`;
+
+const TEMPLATE_NOTIFICATION = /* html */`
+<template class="template-buy-quantity">
+    <div class="quantity-buy">
+      <p></p>
+    </div>
+</template>`;
 
 const MIN_SIZE_SCREEN_DESKTOP = 768;
 
@@ -42,6 +49,7 @@ export {
  TEMPLATE_TRANSPARENT,
  OPTIONS,
  MIN_SIZE_SCREEN_DESKTOP,
+ TEMPLATE_NOTIFICATION,
  getImg,
  addStyles,
  getTemplate

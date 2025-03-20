@@ -1,9 +1,7 @@
 import styles from './HeaderElement.css?raw';
 import sneaker from '/logo/sneaker.svg';
 import menu from '/logo/icon-menu.svg';
-import cart from '/logo/icon-cart.svg';
-import avatar from '/avatar/avatar.png';
-import { addStyles, getImg, getTemplate, MIN_SIZE_SCREEN_DESKTOP } from '../../utils/Util';
+import { addStyles, getImg, getTemplate, MIN_SIZE_SCREEN_DESKTOP, TEMPLATE_CART, templatePrice } from '../../utils/Util';
 import { SidebarElement } from '../sidebar/Sidebar';
 
 export class HeaderElement extends HTMLElement {
@@ -25,18 +23,20 @@ export class HeaderElement extends HTMLElement {
           </div>
           <div class="container-user">
               <div class="icon-cart">
-                <img src="/logo/icon-cart.svg"/>
+                <img src="/logo/icon-cart.svg" alt="icon-cart"/>
               </div>
               <div class="icon-avatar">
-                <img src="/avatar/avatar.png" />
+                <img src="/avatar/avatar.png" alt="icon-avatar" />
               </div>
           </div>
         </div>`
         const { firstElementChild: headerContainer } = shadow;
-        const { firstElementChild: layoutIcoins, lastElementChild: containerUser } = headerContainer!;
+        const { firstElementChild: layoutIcoins, lastElementChild: layoutUser } = headerContainer!;
         const { firstElementChild: containerIcons } = layoutIcoins!;
         containerIcons!.append(this.getMenu(), this.getSneakers());
         const menu = containerIcons!.firstElementChild!;
+        const containerCart = layoutUser!.querySelector<HTMLDivElement>('.icon-cart')!;
+        containerCart.addEventListener('click', this);
         menu.addEventListener('click', this);
         window.addEventListener('resize', this);
         window.addEventListener('DOMContentLoaded', this);
@@ -92,10 +92,45 @@ export class HeaderElement extends HTMLElement {
         }
 
         if (event.type === 'click') {
+            const element = event.target as HTMLElement;
+            if (element instanceof HTMLDivElement) {
+                const containerIcon = element as HTMLDivElement;
+                if (containerIcon.className === 'icon-cart') {
+                    this.addModal(containerIcon.lastElementChild);
+                }
+                return;
+            } else if (element instanceof HTMLImageElement) {
+                const img = element as HTMLImageElement;
+                if (img.alt == 'icon-cart') {
+                    this.addModal(img.nextElementSibling);
+                }
+                return;
+            }
             if (this.sidebar) {
                 document.body.appendChild(getTemplate('.container-template'));
                 const { shadowRoot } = this.sidebar;
                 addStyles(shadowRoot!, ':host(sidebar-element) {transform: translateX(0)}');
+            }
+        }
+    }
+
+    private addModal(element?: Element | null) {
+        const { firstElementChild } = this.shadowRoot!;
+        if (firstElementChild) {
+            const modal = firstElementChild.querySelector('.cart-container');
+            if (modal) {
+                firstElementChild.removeChild(modal);
+            } else {
+                const templateContent = getTemplate('.template-cart') as HTMLDivElement;
+                if (element) {
+                    const { firstElementChild: cartContainer } = templateContent;
+                    const child = cartContainer!.lastElementChild!;
+                    cartContainer!.removeChild(child);
+                    const containerTotal = getTemplate('.template-total') as HTMLDivElement;
+                    containerTotal.querySelector('.container-price-product')!.insertAdjacentHTML('beforeend', templatePrice(parseInt(element.textContent!)));
+                    templateContent.lastElementChild!.append(containerTotal);
+                }
+                firstElementChild.appendChild(templateContent);
             }
         }
     }

@@ -1,3 +1,9 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 .header-container {
   padding-block: var(--padding-header-mobile);
   max-block-size: 40px;
@@ -5,8 +11,14 @@
   margin: auto;
   border-bottom: thin solid
     hsl(from var(--neutral-dark-grayish-blue) h s l / 0.5);
+  position: relative;
 }
 
+@media screen and (width < 768px) {
+  .header-container {
+    padding-inline: var(--padding-value);
+  }
+}
 @media screen and (width > 768px) {
   .header-container {
     padding-block: var(--padding-header-desktop);
@@ -42,12 +54,6 @@
 
 .icon-avatar img {
   inline-size: 40px;
-}
-
-@media screen and (width < 768px) {
-  .header-container {
-    padding-inline: var(--padding-value);
-  }
 }
 
 .layout-icons {
@@ -90,4 +96,64 @@
 
 :is(.container-icons img:first-child, .container-user img:first-child) {
   cursor: pointer;
+}
+
+.cart-container {
+  position: absolute;
+  inset-block-start: 90px;
+  inset-inline: 0;
+  margin: auto;
+  border-radius: 10px;
+  background-color: var(--neutral-white);
+  box-shadow: 1px 5px 15px 2px hsl(from var(--neutral-black) h s l / 0.1);
+  margin-inline: var(--padding-value);
+  & > div:first-child {
+    padding-inline: var(--padding-value);
+    border-block-end: thin solid hsl(from var(--neutral-black) h s l / 0.1);
+  }
+  & > div:last-child {
+    padding: var(--padding-value);
+    align-content: center;
+    & > p {
+      text-align: center;
+      color: var(--neutral-grayish-blue);
+      font-weight: bold;
+    }
+  }
+}
+
+.container-product-and-price {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--value-gap);
+  & button {
+    flex: 1;
+    padding: var(--padding-value);
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    font-size: var(--font-size-value);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    border: none;
+    background-color: var(--primary-orange);
+    cursor: pointer;
+  }
+}
+
+.container-icon img {
+  inline-size: 20px;
+}
+
+.container-image-product {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+  & > img {
+    inline-size: 60px;
+    border-radius: 5px;
+  }
 }

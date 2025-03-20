@@ -34,8 +34,8 @@
   --border-radius: 15px;
 
   --value-gap: 18px;
-  --padding-header-mobile: 20px;
-  --padding-header-desktop: 30px;
+  --padding-header-mobile: 40px;
+  --padding-header-desktop: 60px;
 }
 
 body {

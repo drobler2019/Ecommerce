@@ -97,20 +97,26 @@ export class HeaderElement extends HTMLElement {
                 const containerIcon = element as HTMLDivElement;
                 if (containerIcon.className === 'icon-cart') {
                     this.addModal(containerIcon.lastElementChild);
+                    return;
                 }
-                return;
+                this.viewSidebar();
             } else if (element instanceof HTMLImageElement) {
                 const img = element as HTMLImageElement;
                 if (img.alt == 'icon-cart') {
                     this.addModal(img.nextElementSibling);
+                    return;
                 }
-                return;
+                this.viewSidebar();
             }
-            if (this.sidebar) {
-                document.body.appendChild(getTemplate('.container-template'));
-                const { shadowRoot } = this.sidebar;
-                addStyles(shadowRoot!, ':host(sidebar-element) {transform: translateX(0)}');
-            }
+           
+        }
+    }
+
+    private viewSidebar() : void {
+        if (this.sidebar) {
+            document.body.appendChild(getTemplate('.container-template'));
+            const { shadowRoot } = this.sidebar;
+            addStyles(shadowRoot!, ':host(sidebar-element) {transform: translateX(0)}');
         }
     }
 

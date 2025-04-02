@@ -15,8 +15,10 @@ export class PriceElement extends HTMLElement {
     connectedCallback(): void {
         const minus = this.querySelector('.icon-minus')!;
         const plus = this.querySelector('.icon-plus')!;
+        const button = this.querySelector('button')!;
         plus.addEventListener('click', this);
         minus.addEventListener('click', this);
+        button.addEventListener('click', this);
     }
 
     handleEvent(event: Event) {
@@ -45,32 +47,48 @@ export class PriceElement extends HTMLElement {
                 this.count--;
                 this.addNumber();
             }
+        } else if (element instanceof HTMLButtonElement) {
+            const { shadowRoot } = this.headerElement;
+            const containerIconCart = shadowRoot!.querySelector<HTMLDivElement>('.icon-cart')!;
+            const quantityBuy = containerIconCart.querySelector<HTMLDivElement>('.quantity-buy');
+            if (this.count === 0) {
+                if (quantityBuy) {
+                    this.deleteProductOfModal(shadowRoot!,containerIconCart,quantityBuy);
+                }
+                return;
+            }
+            if (quantityBuy) {
+                quantityBuy.firstElementChild!.textContent = this.count.toString();
+                const cartModalContainer = shadowRoot!.querySelector<HTMLDivElement>('.cart-container')!;
+                const containerProduct = cartModalContainer.querySelector<HTMLDivElement>('.container-product-and-price')!;
+                this.updatePriceProduct(containerProduct);
+                return;
+            }
+            const templateContent = getTemplate('.template-buy-quantity')! as HTMLDivElement;
+            const paragraph = templateContent.querySelector<HTMLParagraphElement>('p')!;
+            paragraph.textContent = this.count.toString();
+            containerIconCart.appendChild(templateContent);
+            this.addProductToModal(shadowRoot!);
         }
     }
 
     private addNumber(): void {
-        const { shadowRoot } = this.headerElement;
-        const containerIconCart = shadowRoot!.querySelector('.icon-cart')!;
-        const quantityBuy = containerIconCart.querySelector('.quantity-buy');
-        const cartContainerPrice = shadowRoot!.querySelector<HTMLDivElement>('.container-price-product');
-        if (quantityBuy) {
-            if (this.count === 0) {
-                const cartModalContainer = shadowRoot!.querySelector<HTMLDivElement>('.cart-container')!;
-                containerIconCart.removeChild(quantityBuy);
-                const containerProduct = cartModalContainer.querySelector('.container-product-and-price')!;
-                cartModalContainer.removeChild(containerProduct);
-                const cartEmpty = (getTemplate('.template-cart') as HTMLDivElement).querySelector('.cart-content')!;
-                cartModalContainer.appendChild(cartEmpty);
-                return;
-            }
-            const para = quantityBuy.querySelector<HTMLParagraphElement>('p');
-            para!.textContent = this.count.toString();
-            if (cartContainerPrice) {
-                this.updatePriceProduct(cartContainerPrice);
-            }
-            return;
-        }
+        const quantityProducts = this.querySelector('.quantity')!;
+        quantityProducts.textContent = this.count.toString();
+    }
 
+    private deleteProductOfModal(shadowRoot: ShadowRoot, containerIconCart: HTMLDivElement, quantityBuy: HTMLDivElement): void {
+        const cartModalContainer = shadowRoot!.querySelector<HTMLDivElement>('.cart-container');
+        containerIconCart.removeChild(quantityBuy);
+        if(cartModalContainer) {
+            const containerProduct = cartModalContainer.querySelector('.container-product-and-price')!;
+            cartModalContainer.removeChild(containerProduct);
+            const cartEmpty = (getTemplate('.template-cart') as HTMLDivElement).querySelector('.cart-content')!;
+            cartModalContainer.appendChild(cartEmpty);
+        } 
+    }
+
+    private addProductToModal(shadowRoot: ShadowRoot): void {
         const cartModalContainer = shadowRoot!.querySelector<HTMLDivElement>('.cart-container')!;
         if (cartModalContainer) {
             const cartContent = cartModalContainer.querySelector('.cart-content');
@@ -82,11 +100,6 @@ export class PriceElement extends HTMLElement {
                 cartModalContainer.appendChild(containerTotal);
             }
         }
-
-        const templateContent = getTemplate('.template-buy-quantity')! as HTMLDivElement;
-        const p = templateContent.querySelector('p')!;
-        p.textContent = this.count.toString();
-        containerIconCart.append(templateContent);
     }
 
     private updatePriceProduct(cartContainerPrice: HTMLDivElement) {

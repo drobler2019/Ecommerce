@@ -35,16 +35,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
-  inline-size: 15px;
-  block-size: 5px;
+  padding: 7px;
   border-radius: 10px;
   position: absolute;
   inset-block-start: -5px;
   inset-inline-end: -5px;
+  inline-size: 20px;
+  block-size: 13px;
   & > p {
-    font-size: 10px;
+    font-size: 12px;
     color: var(--neutral-white);
+    font-weight: bold;
   }
 }
 

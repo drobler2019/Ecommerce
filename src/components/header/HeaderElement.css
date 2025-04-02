@@ -122,6 +122,14 @@
   }
 }
 
+@media screen and (width > 768px) {
+  .cart-container {
+    inset-inline: auto 0;
+    max-inline-size: 500px;
+    min-inline-size: 500px;
+  }
+}
+
 .container-product-and-price {
   display: flex;
   flex-direction: column;

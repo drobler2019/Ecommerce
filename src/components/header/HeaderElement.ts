@@ -1,7 +1,7 @@
 import styles from './HeaderElement.css?raw';
 import sneaker from '/logo/sneaker.svg';
 import menu from '/logo/icon-menu.svg';
-import { addStyles, getImg, getTemplate, MIN_SIZE_SCREEN_DESKTOP, TEMPLATE_CART, templatePrice } from '../../utils/Util';
+import { addStyles, cleanModal, getImg, getTemplate, MIN_SIZE_SCREEN_DESKTOP, templatePrice } from '../../utils/Util';
 import { SidebarElement } from '../sidebar/Sidebar';
 
 export class HeaderElement extends HTMLElement {
@@ -108,11 +108,11 @@ export class HeaderElement extends HTMLElement {
                 }
                 this.viewSidebar();
             }
-           
+
         }
     }
 
-    private viewSidebar() : void {
+    private viewSidebar(): void {
         if (this.sidebar) {
             document.body.appendChild(getTemplate('.container-template'));
             const { shadowRoot } = this.sidebar;
@@ -137,6 +137,7 @@ export class HeaderElement extends HTMLElement {
                     templateContent.lastElementChild!.append(containerTotal);
                 }
                 firstElementChild.appendChild(templateContent);
+                cleanModal(firstElementChild.querySelector('.cart-container'));
             }
         }
     }

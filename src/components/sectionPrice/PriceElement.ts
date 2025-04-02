@@ -1,4 +1,4 @@
-import { getTemplate, templatePrice } from '../../utils/Util';
+import { cleanModal, getTemplate, templatePrice } from '../../utils/Util';
 import { HeaderElement } from '../header/HeaderElement';
 import './PriceElement.css';
 import html from './PriceElement.html?raw';
@@ -98,6 +98,7 @@ export class PriceElement extends HTMLElement {
                 containerTotal.querySelector('.container-price-product')!.insertAdjacentHTML('beforeend', templatePrice(this.count));
                 this.updatePriceProduct(containerTotal);
                 cartModalContainer.appendChild(containerTotal);
+                cleanModal(cartModalContainer);
             }
         }
     }

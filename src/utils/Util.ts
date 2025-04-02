@@ -48,6 +48,33 @@ const getTemplate = (className: string): Node => {
 
 const templatePrice = (value: number) => `<p class="price">$125.00 x ${value} <strong>${value * VALUE_SNEAKERS}.00</strong></p>`;
 
+const resetValueCart = (iconCartCotainer: HTMLDivElement): void => {
+  const quantityBuy = iconCartCotainer.querySelector('.quantity-buy');
+  if (quantityBuy) {
+    iconCartCotainer.removeChild(quantityBuy);
+  }
+};
+
+const cleanModal = (modalElement: HTMLDivElement | null): void => {
+  if (modalElement) {
+    const clean = modalElement.querySelector('.container-icon');
+    if (clean) {
+      clean.addEventListener('click', ({ target }) => {
+        const element = target as HTMLElement;
+        const containerProducts = element.closest<HTMLDivElement>('.container-product-and-price')!;
+        modalElement.removeChild(containerProducts);
+        const cart = getTemplate('.template-cart') as HTMLDivElement;
+        modalElement.appendChild(cart.querySelector('.cart-content')!);
+        const containerUser = modalElement.previousElementSibling as HTMLDivElement;
+        if (containerUser) {
+          resetValueCart(containerUser.querySelector<HTMLDivElement>('.icon-cart')!);
+        }
+      });
+    }
+
+  }
+};
+
 const TEMPLATE_CART = /* html */`
 <template class="template-cart">
    <div class="cart-container">
@@ -82,5 +109,6 @@ export {
   getImg,
   addStyles,
   getTemplate,
-  templatePrice
+  templatePrice,
+  cleanModal
 }

@@ -40,36 +40,57 @@ export class PriceElement extends HTMLElement {
             if (img.alt.includes('plus')) {
                 this.count++;
                 this.addNumber();
-            } else {
+            } else if (img.alt.includes('minus')) {
                 if (this.count === 0) {
                     return;
                 }
                 this.count--;
                 this.addNumber();
+            } else if(img.alt.includes('cart')) {
+                this.eventAddProductToCart(element);
             }
         } else if (element instanceof HTMLButtonElement) {
-            const { shadowRoot } = this.headerElement;
-            const containerIconCart = shadowRoot!.querySelector<HTMLDivElement>('.icon-cart')!;
-            const quantityBuy = containerIconCart.querySelector<HTMLDivElement>('.quantity-buy');
-            if (this.count === 0) {
-                if (quantityBuy) {
-                    this.deleteProductOfModal(shadowRoot!,containerIconCart,quantityBuy);
-                }
-                return;
-            }
-            if (quantityBuy) {
-                quantityBuy.firstElementChild!.textContent = this.count.toString();
-                const cartModalContainer = shadowRoot!.querySelector<HTMLDivElement>('.cart-container')!;
-                const containerProduct = cartModalContainer.querySelector<HTMLDivElement>('.container-product-and-price')!;
-                this.updatePriceProduct(containerProduct);
-                return;
-            }
-            const templateContent = getTemplate('.template-buy-quantity')! as HTMLDivElement;
-            const paragraph = templateContent.querySelector<HTMLParagraphElement>('p')!;
-            paragraph.textContent = this.count.toString();
-            containerIconCart.appendChild(templateContent);
-            this.addProductToModal(shadowRoot!);
+          this.eventAddProductToCart(element);
         }
+    }
+
+    private eventAddProductToCart(element: HTMLButtonElement | HTMLImageElement) : void {
+        if(element instanceof HTMLImageElement) {
+            const img = element as HTMLImageElement;
+            if(img.alt.includes('cart')) {
+                 this.addProductToCart();
+            }
+            return;
+        }
+        this.addProductToCart();
+    }
+
+    private addProductToCart() : void {
+        const { shadowRoot } = this.headerElement;
+        const containerIconCart = shadowRoot!.querySelector<HTMLDivElement>('.icon-cart')!;
+        const quantityBuy = containerIconCart.querySelector<HTMLDivElement>('.quantity-buy');
+        if (this.count === 0) {
+            if (quantityBuy) {
+                this.deleteProductOfModal(shadowRoot!, containerIconCart, quantityBuy);
+            }
+            return;
+        }
+        if (quantityBuy) {
+            quantityBuy.firstElementChild!.textContent = this.count.toString();
+            const cartModalContainer = shadowRoot!.querySelector<HTMLDivElement>('.cart-container')!;
+            if (cartModalContainer) {
+                const containerProduct = cartModalContainer.querySelector<HTMLDivElement>('.container-product-and-price');
+                if (containerProduct) {
+                    this.updatePriceProduct(containerProduct);
+                }
+            }
+            return;
+        }
+        const templateContent = getTemplate('.template-buy-quantity')! as HTMLDivElement;
+        const paragraph = templateContent.querySelector<HTMLParagraphElement>('p')!;
+        paragraph.textContent = this.count.toString();
+        containerIconCart.appendChild(templateContent);
+        this.addProductToModal(shadowRoot!);
     }
 
     private addNumber(): void {
@@ -80,12 +101,12 @@ export class PriceElement extends HTMLElement {
     private deleteProductOfModal(shadowRoot: ShadowRoot, containerIconCart: HTMLDivElement, quantityBuy: HTMLDivElement): void {
         const cartModalContainer = shadowRoot!.querySelector<HTMLDivElement>('.cart-container');
         containerIconCart.removeChild(quantityBuy);
-        if(cartModalContainer) {
+        if (cartModalContainer) {
             const containerProduct = cartModalContainer.querySelector('.container-product-and-price')!;
             cartModalContainer.removeChild(containerProduct);
             const cartEmpty = (getTemplate('.template-cart') as HTMLDivElement).querySelector('.cart-content')!;
             cartModalContainer.appendChild(cartEmpty);
-        } 
+        }
     }
 
     private addProductToModal(shadowRoot: ShadowRoot): void {
